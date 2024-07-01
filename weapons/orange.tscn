@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://cw3ccxr7wtpjp"]
+
+[ext_resource type="PackedScene" uid="uid://c055qja63e6e3" path="res://weapons/projectile.tscn" id="1_8hlc5"]
+[ext_resource type="Script" path="res://weapons/orange.gd" id="2_e4cun"]
+[ext_resource type="Texture2D" uid="uid://b1k7moqq7i4k" path="res://assets/weapons/orange-fruit.png" id="2_tmufu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ve0oc"]
+radius = 115.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bdqxl"]
+radius = 17.0294
+
+[sub_resource type="Gradient" id="Gradient_3ke1m"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j2ihl"]
+gradient = SubResource("Gradient_3ke1m")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ho1k0"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 140.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 7.0
+color_ramp = SubResource("GradientTexture1D_j2ihl")
+hue_variation_min = -0.07
+hue_variation_max = 0.3
+
+[node name="Orange" instance=ExtResource("1_8hlc5")]
+script = ExtResource("2_e4cun")
+lifetime = 1.0
+damage = 30
+
+[node name="HitBox" parent="." index="1" node_paths=PackedStringArray("collison_shape")]
+collison_shape = NodePath("CollisonShape2D")
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CircleShape2D_ve0oc")
+disabled = true
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(-1, -1)
+scale = Vector2(0.0202299, 0.0202299)
+texture = ExtResource("2_tmufu")
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="ImpactDetector" index="0"]
+rotation = -1.5708
+shape = SubResource("CircleShape2D_bdqxl")
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="." index="4"]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ho1k0")
+lifetime = 0.6
+explosiveness = 1.0

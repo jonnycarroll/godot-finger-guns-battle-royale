@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://7fl5fxyq8bdy"]
+
+[ext_resource type="Script" path="res://pickups/healing.gd" id="1_ktbhf"]
+[ext_resource type="Texture2D" uid="uid://ds1aw8o10j0lk" path="res://assets/items/heart.png" id="1_qetcl"]
+[ext_resource type="PackedScene" uid="uid://dmgpyknqxen6f" path="res://pickups/pickup.tscn" id="1_th6dt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6rgw5"]
+radius = 20.0
+
+[node name="Healing" instance=ExtResource("1_th6dt")]
+script = ExtResource("1_ktbhf")
+health = 10
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("1_qetcl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_6rgw5")

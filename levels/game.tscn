@@ -1,0 +1,294 @@
+[gd_scene load_steps=8 format=3 uid="uid://cccif6hewyctw"]
+
+[ext_resource type="Script" path="res://levels/game.gd" id="1_nradd"]
+[ext_resource type="Texture2D" uid="uid://bk1els2fewswl" path="res://assets/levels/football_field.png" id="3_0w6iv"]
+[ext_resource type="Script" path="res://levels/ui.gd" id="3_clxlk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwa86"]
+size = Vector2(1145, 20.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pghx"]
+size = Vector2(32, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42e8d"]
+size = Vector2(1145, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qjbe"]
+size = Vector2(32.75, 720)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_nradd")
+
+[node name="Arena" type="Node2D" parent="."]
+
+[node name="ArenaCentre" type="Marker2D" parent="Arena"]
+position = Vector2(741, 361)
+
+[node name="Field" type="Sprite2D" parent="Arena"]
+position = Vector2(1280, 0)
+rotation = 1.5708
+scale = Vector2(0.527412, 0.527412)
+texture = ExtResource("3_0w6iv")
+centered = false
+
+[node name="PlayerSpawnZones" type="Node" parent="Arena"]
+
+[node name="TopLeft" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(311, 86)
+
+[node name="TopMiddle" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(739, 86)
+
+[node name="TopRight" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(1177, 86)
+
+[node name="BottomLeft" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(311, 624)
+
+[node name="BottomMiddle" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(741, 624)
+
+[node name="BottomRight" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(1186, 624)
+
+[node name="Walls" type="Node" parent="Arena"]
+
+[node name="TopWall" type="Area2D" parent="Arena/Walls" groups=["arena_walls"]]
+collision_mask = 0
+monitoring = false
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/TopWall"]
+position = Vector2(740.5, -10.25)
+shape = SubResource("RectangleShape2D_gwa86")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/TopWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/TopWall/StaticBody2D"]
+position = Vector2(740.5, -10.25)
+shape = SubResource("RectangleShape2D_gwa86")
+
+[node name="LeftWall" type="Area2D" parent="Arena/Walls" groups=["arena_walls"]]
+collision_mask = 0
+monitoring = false
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/LeftWall"]
+position = Vector2(184, 360)
+shape = SubResource("RectangleShape2D_0pghx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/LeftWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/LeftWall/StaticBody2D"]
+position = Vector2(184, 360)
+shape = SubResource("RectangleShape2D_0pghx")
+
+[node name="BottomWall" type="Area2D" parent="Arena/Walls" groups=["arena_walls"]]
+collision_mask = 0
+monitoring = false
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/BottomWall"]
+position = Vector2(740.5, 730)
+shape = SubResource("RectangleShape2D_42e8d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/BottomWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/BottomWall/StaticBody2D"]
+position = Vector2(740.5, 730)
+shape = SubResource("RectangleShape2D_42e8d")
+
+[node name="RightWall" type="Area2D" parent="Arena/Walls" groups=["area_walls"]]
+collision_mask = 0
+monitoring = false
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/RightWall"]
+position = Vector2(1296.63, 360)
+shape = SubResource("RectangleShape2D_8qjbe")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/RightWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/RightWall/StaticBody2D"]
+position = Vector2(1296.63, 360)
+shape = SubResource("RectangleShape2D_8qjbe")
+
+[node name="Timers" type="Node" parent="Arena"]
+
+[node name="MatchStartTimer" type="Timer" parent="Arena/Timers"]
+one_shot = true
+autostart = true
+
+[node name="PickupSpawnTimer" type="Timer" parent="Arena/Timers"]
+wait_time = 0.5
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Pickups" type="Node" parent="."]
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("3_clxlk")
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+offset_right = 200.0
+offset_bottom = 720.0
+color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="GameTime" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/GameTime"]
+layout_mode = 2
+text = "Game time"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/ColorRect/MarginContainer/VBoxContainer/GameTime"]
+layout_mode = 2
+
+[node name="Player" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/Player"]
+layout_mode = 2
+text = "
+<Player name>"
+
+[node name="HealthLabel" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/Player"]
+layout_mode = 2
+text = "Health
+"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/ColorRect/MarginContainer/VBoxContainer/Player"]
+layout_mode = 2
+rounded = true
+
+[node name="PlayerStats" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats"]
+layout_mode = 2
+text = "
+Player stats"
+
+[node name="LifeStats" type="HBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats"]
+layout_mode = 2
+
+[node name="Kills" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/LifeStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/LifeStats/Kills"]
+layout_mode = 2
+text = "Kills"
+
+[node name="KillCounter" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/LifeStats/Kills"]
+layout_mode = 2
+text = "000"
+
+[node name="Deaths" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/LifeStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/LifeStats/Deaths"]
+layout_mode = 2
+text = "Deaths
+"
+
+[node name="DeathCounter" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/LifeStats/Deaths"]
+layout_mode = 2
+text = "000"
+
+[node name="DamageLabel" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats"]
+layout_mode = 2
+text = "Damage"
+
+[node name="DamageStats" type="HBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats"]
+layout_mode = 2
+
+[node name="Dealt" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/DamageStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/DamageStats/Dealt"]
+layout_mode = 2
+text = "Dealt"
+
+[node name="Counter" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/DamageStats/Dealt"]
+layout_mode = 2
+text = "000"
+
+[node name="Taken" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/DamageStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/DamageStats/Taken"]
+layout_mode = 2
+text = "Taken
+"
+
+[node name="Counter" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PlayerStats/DamageStats/Taken"]
+layout_mode = 2
+text = "000"
+
+[node name="PowerUps" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps"]
+layout_mode = 2
+text = "
+Power ups
+"
+
+[node name="PrimaryFireLabel" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps"]
+layout_mode = 2
+text = "
+Primary fire"
+
+[node name="FiringModeLabel" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps"]
+layout_mode = 2
+text = "Single shot"
+
+[node name="SecondaryFireLabel" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps"]
+layout_mode = 2
+text = "
+Secondary fire"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps"]
+layout_mode = 2
+
+[node name="Grenades" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps/HBoxContainer"]
+layout_mode = 2
+
+[node name="FiringOptionLabel" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps/HBoxContainer/Grenades"]
+layout_mode = 2
+text = "Grenades"
+
+[node name="Counter" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps/HBoxContainer/Grenades"]
+layout_mode = 2
+text = "000"
+
+[node name="BadBreath" type="VBoxContainer" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps/HBoxContainer"]
+layout_mode = 2
+
+[node name="FiringOptionLabel" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps/HBoxContainer/BadBreath"]
+layout_mode = 2
+text = "Bad breath"
+
+[node name="Counter" type="Label" parent="UI/ColorRect/MarginContainer/VBoxContainer/PowerUps/HBoxContainer/BadBreath"]
+layout_mode = 2
+text = "000"
+
+[connection signal="timeout" from="Arena/Timers/MatchStartTimer" to="." method="_on_match_start_timer_timeout"]
+[connection signal="timeout" from="Arena/Timers/PickupSpawnTimer" to="." method="_on_pickup_spawn_timer_timeout"]

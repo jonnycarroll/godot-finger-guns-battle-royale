@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm4rpxo50j8w3"]
+
+[ext_resource type="PackedScene" uid="uid://c055qja63e6e3" path="res://weapons/projectile.tscn" id="1_llxyg"]
+[ext_resource type="Texture2D" uid="uid://coa52dew0f8dv" path="res://assets/weapons/stapler.png" id="2_ralai"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8pgew"]
+radius = 5.0
+height = 24.0
+
+[node name="Stapler" instance=ExtResource("1_llxyg")]
+
+[node name="HitBox" parent="." index="1" node_paths=PackedStringArray("collison_shape")]
+collison_shape = NodePath("CollisonShape2D")
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_8pgew")
+
+[node name="Sprite2D" parent="." index="2"]
+texture = ExtResource("2_ralai")
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="ImpactDetector" index="0"]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_8pgew")

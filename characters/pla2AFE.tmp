@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1h4b86nq7eio"]
+
+[ext_resource type="Texture2D" uid="uid://1htgsgsghuj7" path="res://assets/characters/avatar-female-face.svg" id="1_hdw4y"]
+[ext_resource type="Script" path="res://characters/player.gd" id="1_sev0o"]
+[ext_resource type="Texture2D" uid="uid://cjvwrgw4okybw" path="res://assets/characters/finger-gun.png" id="2_bslfq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o0w00"]
+radius = 30.0167
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_sev0o")
+
+[node name="HurtBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o0w00")
+
+[node name="Avatar" type="Sprite2D" parent="."]
+scale = Vector2(0.0775, 0.0775)
+texture = ExtResource("1_hdw4y")
+
+[node name="Hands" type="Node2D" parent="."]
+
+[node name="LeftHand" type="Sprite2D" parent="Hands"]
+position = Vector2(78.2, -32)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_bslfq")
+flip_h = true
+
+[node name="RightHand" type="Sprite2D" parent="Hands"]
+position = Vector2(78.2, 32)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_bslfq")
+flip_h = true
+flip_v = true
+
+[node name="LeftMuzzle" type="Marker2D" parent="Hands"]
+position = Vector2(109, -32)
+
+[node name="RightMuzzle" type="Marker2D" parent="Hands"]
+position = Vector2(109, 32)
+
+[node name="SecondaryMuzzle" type="Marker2D" parent="Hands"]
+position = Vector2(49, 0)
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="PrimaryFireCooldown" type="Timer" parent="Timers"]
+wait_time = 0.3
+one_shot = true
+
+[node name="SecondaryFireCooldown" type="Timer" parent="Timers"]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="timeout" from="Timers/PrimaryFireCooldown" to="." method="_on_primary_fire_cooldown_timeout"]
+[connection signal="timeout" from="Timers/SecondaryFireCooldown" to="." method="_on_secondary_fire_cooldown_timeout"]

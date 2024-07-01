@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://cccif6hewyctw"]
+
+[ext_resource type="Script" path="res://levels/game.gd" id="1_nradd"]
+[ext_resource type="Texture2D" uid="uid://bk1els2fewswl" path="res://assets/levels/football_field.png" id="3_0w6iv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwa86"]
+size = Vector2(1145, 20.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pghx"]
+size = Vector2(32, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42e8d"]
+size = Vector2(1145, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qjbe"]
+size = Vector2(32.75, 720)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_nradd")
+
+[node name="Arena" type="Node2D" parent="."]
+
+[node name="ArenaCentre" type="Marker2D" parent="Arena"]
+position = Vector2(741, 361)
+
+[node name="Field" type="Sprite2D" parent="Arena"]
+position = Vector2(1280, 0)
+rotation = 1.5708
+scale = Vector2(0.527412, 0.527412)
+texture = ExtResource("3_0w6iv")
+centered = false
+
+[node name="PlayerSpawnZones" type="Node" parent="Arena"]
+
+[node name="TopLeft" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(311, 86)
+
+[node name="TopMiddle" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(739, 86)
+
+[node name="TopRight" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(1177, 86)
+
+[node name="BottomLeft" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(311, 624)
+
+[node name="BottomMiddle" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(741, 624)
+
+[node name="BottomRight" type="Marker2D" parent="Arena/PlayerSpawnZones"]
+position = Vector2(1186, 624)
+
+[node name="Walls" type="Node" parent="Arena"]
+
+[node name="TopWall" type="Area2D" parent="Arena/Walls"]
+collision_mask = 4
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/TopWall"]
+position = Vector2(740.5, -10.25)
+shape = SubResource("RectangleShape2D_gwa86")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/TopWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/TopWall/StaticBody2D"]
+position = Vector2(740.5, -10.25)
+shape = SubResource("RectangleShape2D_gwa86")
+
+[node name="LeftWall" type="Area2D" parent="Arena/Walls"]
+collision_mask = 4
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/LeftWall"]
+position = Vector2(184, 360)
+shape = SubResource("RectangleShape2D_0pghx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/LeftWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/LeftWall/StaticBody2D"]
+position = Vector2(184, 360)
+shape = SubResource("RectangleShape2D_0pghx")
+
+[node name="BottomWall" type="Area2D" parent="Arena/Walls"]
+collision_mask = 4
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/BottomWall"]
+position = Vector2(740.5, 730)
+shape = SubResource("RectangleShape2D_42e8d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/BottomWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/BottomWall/StaticBody2D"]
+position = Vector2(740.5, 730)
+shape = SubResource("RectangleShape2D_42e8d")
+
+[node name="RightWall" type="Area2D" parent="Arena/Walls"]
+collision_mask = 4
+
+[node name="CollisonShape2D" type="CollisionShape2D" parent="Arena/Walls/RightWall"]
+position = Vector2(1296.63, 360)
+shape = SubResource("RectangleShape2D_8qjbe")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena/Walls/RightWall"]
+
+[node name="CollisonShape2D2" type="CollisionShape2D" parent="Arena/Walls/RightWall/StaticBody2D"]
+position = Vector2(1296.63, 360)
+shape = SubResource("RectangleShape2D_8qjbe")
+
+[node name="Timers" type="Node" parent="Arena"]
+
+[node name="MatchStartTimer" type="Timer" parent="Arena/Timers"]
+one_shot = true
+autostart = true
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Projectiles" type="Node" parent="."]
+
+[connection signal="timeout" from="Arena/Timers/MatchStartTimer" to="." method="_on_match_start_timer_timeout"]

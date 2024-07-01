@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpfawsyteleq0"]
+
+[ext_resource type="PackedScene" uid="uid://dmgpyknqxen6f" path="res://pickups/pickup.tscn" id="1_xjlhn"]
+[ext_resource type="Texture2D" uid="uid://b1k7moqq7i4k" path="res://assets/weapons/orange-fruit.png" id="2_2mgr1"]
+[ext_resource type="Script" path="res://pickups/grenade.gd" id="2_nbpa6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwyut"]
+radius = 17.0
+
+[node name="Grenade" instance=ExtResource("1_xjlhn")]
+script = ExtResource("2_nbpa6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_iwyut")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(-1.5, -2)
+texture = ExtResource("2_2mgr1")

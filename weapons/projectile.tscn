@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c055qja63e6e3"]
+
+[ext_resource type="Script" path="res://weapons/projectile.gd" id="1_70lry"]
+[ext_resource type="Script" path="res://weapons/hit_box.gd" id="2_jt53s"]
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_70lry")
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HitBox" type="Area2D" parent="."]
+rotation = -1.5708
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_jt53s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5.96046e-08, 2.38419e-07)
+scale = Vector2(0.05, 0.05)
+
+[node name="ImpactDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+monitorable = false

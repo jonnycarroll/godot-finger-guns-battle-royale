@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmgpyknqxen6f"]
+
+[ext_resource type="Script" path="res://pickups/pickup.gd" id="1_ktbhf"]
+
+[node name="Pickup" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_ktbhf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.02, 0.02)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
